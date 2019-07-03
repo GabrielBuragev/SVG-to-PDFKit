@@ -1808,6 +1808,11 @@ var SVGtoPDF = function(doc, svg, x, y, options) {
             if (stroke) {
               for (let j = 0; j < subPaths.length; j++) {
                 if (isEqual(subPaths[j].totalLength, 0)) {
+                  
+                  // Prevent script from crashing when there are paths with empty trajectory
+                  if(subPaths[j].startPoint == null)
+                    continue;
+
                   if ((lineCap === 'square' || lineCap === 'round') && lineWidth > 0) {
                     if (subPaths[j].startPoint && subPaths[j].startPoint.length > 1) {
                       let x = subPaths[j].startPoint[0],
